@@ -37,18 +37,18 @@ export class FilterToolbarComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    console.log('date form looks like ', this.dateForm.value);
     this.dataSubs = this.dashboardCore.getDashboardData(this.dateForm.value)
     .subscribe(response => {
       console.log('recieved response as ', response);
+      this.dataSubs.unsubscribe();
     }, err => {
       console.log('An error occured while getting the data from the server');
       console.log(err);
+      this.dataSubs.unsubscribe();
     });
   }
 
   ngOnDestroy() {
-    this.dataSubs.unsubscribe();
   }
 
 }

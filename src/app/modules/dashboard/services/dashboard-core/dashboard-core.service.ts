@@ -12,7 +12,6 @@ export class DashboardCoreService {
   getDashboardData(dateFilters) {
     console.log('recieved filters as ', dateFilters);
     const request = this.dashboardUSrvc.generateReportRequestObject(dateFilters);
-    const subs = this.dashboardUSrvc.hitReportAPI(request);
-    return of({hello: 'world'});
+    return this.dashboardUSrvc.hitReportAPI(request);
   }
 }
