@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  toolbarTiles = [];
   constructor() { }
 
   ngOnInit(): void {
+    // set toolbar tiles to be sent to the toolbar component
+    this.toolbarTiles = this.getToolbarDetails();
+  }
+
+  getToolbarDetails() {
+    return [
+      {
+        name: 'Home',
+        route: '/dashboard',
+      },
+      {
+        name: 'Login',
+        route: '/login'
+      }
+    ];
   }
 
 }

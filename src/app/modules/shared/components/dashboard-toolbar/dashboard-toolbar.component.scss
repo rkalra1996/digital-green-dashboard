@@ -1,0 +1,17 @@
+.dg-toolbar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+button {
+    color: var(--button-font-color);
+    font-size: 1.3rem;
+    padding: 0.5rem 0.7rem;
+    min-width: 100px;
+    &:hover {
+        background-color: var(--button-hover-color);
+        color: var(--button-hover-font-color);
+        transition: 0.3s;
+    }
+}
