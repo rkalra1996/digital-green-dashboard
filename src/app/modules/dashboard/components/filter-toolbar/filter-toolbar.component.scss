@@ -1,0 +1,22 @@
+.dg-filter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: initial;
+}
+.right-container {
+    button {
+        margin-right: 10px;
+        background-color: var(--filter-toolbar-button-color);
+        color: var(--button-hover-font-color);
+    }
+}
+
+.fromPicker, .toPicker {
+    margin-left: 20px;
+    color: black;
+}

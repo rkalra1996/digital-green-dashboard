@@ -1,0 +1,14 @@
+<div class="dg-filter">
+    <div class="left-container">
+        <div class="fromPicker">
+            <shared-date-picker [pickerTitle]="fromPickerText" [pickerDate]="'3/20/2020'" (selectedDate)="selectedToDateEvent($event)"></shared-date-picker>
+        </div>
+        <div class="toPicker">
+            <shared-date-picker [pickerTitle]="toPickerText" (selectedDate)="selectedToDateEvent($event)"></shared-date-picker>
+        </div>
+    </div>
+    <div class="right-container">
+        <button mat-button>Get Report</button>
+    </div>
+    
+</div>
