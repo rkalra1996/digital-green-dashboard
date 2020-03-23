@@ -1,0 +1,5 @@
+<div class="dg-toolbar">
+    <ng-container *ngFor="let tile of toolbarTiles">
+        <button mat-button (click)="buttonClick(tile)">{{tile?.name}}</button>  
+    </ng-container>
+</div>
