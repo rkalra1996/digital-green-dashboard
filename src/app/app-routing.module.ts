@@ -9,7 +9,7 @@ const routes: Routes = [{
   pathMatch: 'full'
 }, {
   path: 'dashboard',
-  component: AppComponent
+  loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
 }];
 
 @NgModule({
