@@ -1,0 +1,67 @@
+<table mat-table [dataSource]="rows" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="No">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element?.No}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let element"> {{element?.username}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="session name">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="created on">
+      <th mat-header-cell *matHeaderCellDef> Created On </th>
+      <td mat-cell *matCellDef="let element"> {{element['created on']}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="question id">
+        <th mat-header-cell *matHeaderCellDef> Question ID </th>
+        <td mat-cell *matCellDef="let element"> {{element['question id']}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="question uploaded">
+        <th mat-header-cell *matHeaderCellDef> Question Uploaded</th>
+        <td mat-cell *matCellDef="let element"> {{element['question uploaded']}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="question uploaded on">
+        <th mat-header-cell *matHeaderCellDef> Question Uploaded On </th>
+        <td mat-cell *matCellDef="let element"> {{element['question uploaded on']}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pipeline succeeded">
+        <th mat-header-cell *matHeaderCellDef> Pipeline Succeeded </th>
+        <td mat-cell *matCellDef="let element"> {{element['pipeline succeeded']}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="speech to text">
+        <th mat-header-cell *matHeaderCellDef> Speech to Text </th>
+        <td mat-cell *matCellDef="let element"> {{element['speech to text']}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="language translation">
+        <th mat-header-cell *matHeaderCellDef> Language Translation </th>
+        <td mat-cell *matCellDef="let element"> {{element['language translation']}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="key phrases">
+        <th mat-header-cell *matHeaderCellDef> Key Phrases </th>
+        <td mat-cell *matCellDef="let element"> {{element['key phrases']}} </td>
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>

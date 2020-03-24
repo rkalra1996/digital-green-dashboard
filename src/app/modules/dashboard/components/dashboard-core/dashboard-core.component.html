@@ -3,6 +3,9 @@
         <shared-header></shared-header>
     </div>
     <div class="dg-main">
-        <dashboard-filter-toolbar></dashboard-filter-toolbar>
+        <dashboard-filter-toolbar (filteredData)="processFilteredData($event)"></dashboard-filter-toolbar>
+        <div class="table-wrapper">
+            <shared-dg-table [tableDetails]="tableDetails"></shared-dg-table>
+        </div>
     </div>
 </div>

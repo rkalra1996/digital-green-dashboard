@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardUtilityService } from '../../services/dashboard-utility/dashboard-utility.service';
 
 @Component({
   selector: 'app-dashboard-core',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardCoreComponent implements OnInit {
 
-  constructor() { }
+  tableDetails: object;
+
+  constructor(private readonly dashboardUSrvc: DashboardUtilityService) { }
 
   ngOnInit(): void {
+  }
+
+  processFilteredData(data) {
+    this.tableDetails = {...this.dashboardUSrvc.processDataForTable(data)};
+    console.log('assigning new data in parent as ', this.tableDetails);
   }
 
 }
