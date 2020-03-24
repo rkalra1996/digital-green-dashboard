@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss']
 })
-export class DatePickerComponent implements OnInit, OnChanges {
+export class DatePickerComponent implements OnInit {
 
   @Input() pickerTitle: string;
   @Input() pickerDate: string;
@@ -15,14 +15,12 @@ export class DatePickerComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  ngOnChanges() {
     this.detectDate();
   }
 
   changeEvent(event) {
     console.log('date selected as ', event.value);
+    this.currentDate.setValue(new Date(event.value));
     this.selectedDate.emit(event.value);
   }
 
