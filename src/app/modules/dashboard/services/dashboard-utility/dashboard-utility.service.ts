@@ -1,3 +1,4 @@
+// tslint:disable: no-string-literal
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/modules/shared/services/config-service/config.service';
 import { Observable, of } from 'rxjs';
@@ -59,6 +60,90 @@ export class DashboardUtilityService {
    */
   processDataForTable(dataObj) {
     console.log('data recieved to process is ', dataObj);
+    if (dataObj && dataObj.hasOwnProperty('pipeline_information') && Object.keys(dataObj.pipeline_information).length) {
+      const parsedData = this.parseData(dataObj.pipeline_information);
+      console.log('parsed data as ', parsedData);
+      return parsedData;
+    } else {
+      return {
+        columns: [],
+        rows: [],
+      };
+    }
+  }
+
+  parseData(data) {
+    const columns = ['No', 'username'];
+    const rows = [];
+    Object.keys(data).forEach(username => {
+      const userObject = {
+        No: (rows.length + 1),
+        username,
+      };
+      data[username].forEach(sessionObject => {
+        if (sessionObject.hasOwnProperty('session_name')) {
+          if (!columns.includes('session name')) {columns.push('session name');}
+          userObject['session name'] = sessionObject['session_name'];
+        }
+        if (sessionObject.hasOwnProperty('session_created_at')) {
+          if (!columns.includes('created on')) {columns.push('created on')};
+          userObject['created on'] = sessionObject['session_created_at'];
+        }
+        /* if (sessionObject.hasOwnProperty('session_is_uploaded')) {
+          if (!columns.includes('session uploaded')) {columns.push('session uploaded')};
+          userObject['session uploaded'] = sessionObject['session_is_uploaded'];
+        } */
+        if (sessionObject.hasOwnProperty('pipeline')) {
+          const questionDetails = [];
+          if (sessionObject['pipeline']['pipeline_completed_count']) {
+            questionDetails.push([...this.gatherQuestionDetails(sessionObject['pipeline']['pipeline_completed_details'], true)]);
+          }
+          if (sessionObject['pipeline']['pipeline_failed_count']) {
+            questionDetails.push([...this.gatherQuestionDetails(sessionObject['pipeline']['pipeline_failure_details'], false)]);
+          }
+          if (!columns.includes('question id')) {columns.push('question id')};
+          if (!columns.includes('question uploaded')) {columns.push('question uploaded')};
+          if (!columns.includes('question uploaded on')) {columns.push('question uploaded on')};
+          if (!columns.includes('pipeline succeeded')) {columns.push('pipeline succeeded')};
+          if (!columns.includes('speech to text')) {columns.push('speech to text')};
+          if (!columns.includes('language translation')) {columns.push('language translation')};
+          if (!columns.includes('key phrases')) {columns.push('key phrases')};
+          userObject['questions'] = questionDetails;
+        }
+      });
+      rows.push(userObject);
+    });
+    return {columns, rows};
+  }
+
+  gatherQuestionDetails(questionArray, pipelineSucceeded) {
+    const mappedQuestions = questionArray.map(question => {
+      const newQuest = {};
+      if (question.hasOwnProperty('question_id')) {
+        newQuest['question id'] = question['question_id'];
+      }
+      if (question.hasOwnProperty('question_uploaded')) {
+        newQuest['question uploaded'] = question['question_uploaded'];
+      }
+      if (question.hasOwnProperty('question_recording_modified_on')) {
+        newQuest['question uploaded on'] = question['question_recording_modified_on'];
+      }
+      newQuest['pipeline succeeded'] = pipelineSucceeded;
+      if (question.hasOwnProperty('speech_to_text_transcript')) {
+        newQuest['speech to text'] = question['speech_to_text_transcript'];
+      }
+      if (question.hasOwnProperty('translated_data')) {
+        newQuest['language translation'] = question['translated_data'];
+      }
+      if (question.hasOwnProperty('key_phrase_data') ) {
+        newQuest['key phrases'] = JSON.stringify(question['key_phrase_data']);
+      }
+      return newQuest;
+    });
+    return mappedQuestions;
+  }
+
+  parseDummyData() {
     return {
       columns: ['No', 'username', 'session name', 'created on', 'question id', 'question uploaded', 'question uploaded on', 'pipeline succeeded', 'speech to text', 'language translation', 'key phrases'],
       rows: [

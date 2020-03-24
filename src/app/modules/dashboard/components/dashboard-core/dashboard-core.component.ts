@@ -17,6 +17,7 @@ export class DashboardCoreComponent implements OnInit {
 
   processFilteredData(data) {
     this.tableDetails = {...this.dashboardUSrvc.processDataForTable(data)};
+    debugger;
     console.log('assigning new data in parent as ', this.tableDetails);
   }
 

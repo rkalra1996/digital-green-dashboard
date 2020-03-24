@@ -13,6 +13,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { ConfigService } from './services/config-service/config.service';
 import { HttpService } from './services/http-service/http.service';
 import { DgTableComponent } from './components/dg-table/dg-table.component';
@@ -32,6 +33,8 @@ import { DgTableComponent } from './components/dg-table/dg-table.component';
     MatInputModule,
     MatDatepickerModule,
     MatTableModule,
+    MatPaginatorModule,
+
   ],
   providers: [ConfigService, HttpService],
   exports: [HeaderComponent, DashboardToolbarComponent, RouteNotFoundComponent, DatePickerComponent, MatButtonModule, DgTableComponent]
