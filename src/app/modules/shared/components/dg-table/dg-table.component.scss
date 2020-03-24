@@ -38,3 +38,13 @@ table {
         min-width: 150px;
     }
 }
+
+.right-container {
+    display: flex;
+    float: right;
+    button {
+        margin-right: 10px;
+        background-color: var(--button-font-color);
+        color: var(--button-hover-font-color);
+    }
+}

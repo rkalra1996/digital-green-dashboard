@@ -73,13 +73,9 @@ export class DashboardUtilityService {
   }
 
   parseData(data) {
-    const columns = ['No', 'username'];
+    const columns = ['No', 'User Name'];
     const rows = [];
     Object.keys(data).forEach(username => {
-      const initialUserObject = {
-        No: (rows.length + 1),
-        username,
-      };
       data[username].forEach(sessionObject => {
         const sessionByUserObject = {No: (rows.length + 1), username};
         if (sessionObject.hasOwnProperty('session_name')) {
@@ -87,8 +83,8 @@ export class DashboardUtilityService {
           sessionByUserObject['session name'] = sessionObject['session_name'];
         }
         if (sessionObject.hasOwnProperty('session_created_at')) {
-          if (!columns.includes('created on')) {columns.push('created on')}
-          sessionByUserObject['created on'] = sessionObject['session_created_at'];
+          if (!columns.includes('Session Held On')) {columns.push('Session Held On')}
+          sessionByUserObject['Session Held On'] = sessionObject['session_created_at'];
         }
         /* if (sessionObject.hasOwnProperty('session_is_uploaded')) {
           if (!columns.includes('session uploaded')) {columns.push('session uploaded')};
@@ -104,10 +100,10 @@ export class DashboardUtilityService {
           }
           if (!columns.includes('question id')) {columns.push('question id')}
           if (!columns.includes('question uploaded')) {columns.push('question uploaded')}
-          if (!columns.includes('question uploaded on')) {columns.push('question uploaded on')}
+          if (!columns.includes('Question Synced On')) {columns.push('Question Synced On')}
           if (!columns.includes('pipeline succeeded')) {columns.push('pipeline succeeded')}
-          if (!columns.includes('speech to text')) {columns.push('speech to text')}
-          if (!columns.includes('language translation')) {columns.push('language translation')}
+          if (!columns.includes('Hindi Text')) {columns.push('Hindi Text')}
+          if (!columns.includes('English Text')) {columns.push('English Text')}
           if (!columns.includes('key phrases')) {columns.push('key phrases')}
           sessionByUserObject['questions'] = questionDetails;
           const idCounter = rows.length;
@@ -127,29 +123,34 @@ export class DashboardUtilityService {
   spanQuestions(username, sessionObject, questionsArray, idCounter) {
     console.log('spanQuestions data is ', {username, sessionObject, questionsArray});
     if (!questionsArray) {
+      console.log('EMPTY');
+      console.log(sessionObject);
       return [{
         No: idCounter + 1,
-        username,
-        'session name': 'Not Available',
-        'created on': 'Not Available',
+        'User Name': username,
+        'session name': sessionObject['session name'],
+        'Session Held On': sessionObject['Session Held On'].replace(',', ' at '),
         'question id': 'Not Available',
         'question uploaded': 'Not Available',
-        'question uploaded on': 'Not Available',
+        'Question Synced On': 'Not Available',
         'pipeline succeeded': 'Not Available',
+        'Hindi Text': '',
+        'English Text': '',
+        'key phrases': ''
       }];
     }
     const userBasedOnQuestionsObject = questionsArray.map((question, questionIdx) => {
       const newQuestObj = {
         No: idCounter + questionIdx + 1,
-        username,
+        'User Name': username,
         'session name': sessionObject['session name'],
-        'created on': sessionObject['created on'],
+        'Session Held On': sessionObject['Session Held On'].replace(',', ' at '),
         'question id': question['question id'],
         'question uploaded': question['question uploaded'],
-        'question uploaded on': question['question uploaded on'],
+        'Question Synced On': question['Question Synced On'].replace(',', ' at '),
         'pipeline succeeded': question['pipeline succeeded'],
-        'speech to text': question['speech to text'],
-        'language translation': question['language translation']
+        'Hindi Text': question['Hindi Text'],
+        'English Text': question['English Text']
       };
       if (question.hasOwnProperty('key phrases')) {
         // newQuestObj['key phrases'] = question['key phrases'];
@@ -170,18 +171,18 @@ export class DashboardUtilityService {
         newQuest['question uploaded'] = question['question_uploaded'];
       }
       if (question.hasOwnProperty('question_recording_modified_on')) {
-        newQuest['question uploaded on'] = question['question_recording_modified_on'];
+        newQuest['Question Synced On'] = question['question_recording_modified_on'];
       }
       newQuest['pipeline succeeded'] = pipelineSucceeded;
       if (question.hasOwnProperty('speech_to_text_transcript')) {
-        newQuest['speech to text'] = question['speech_to_text_transcript'];
+        newQuest['Hindi Text'] = question['speech_to_text_transcript'];
       } else {
-        newQuest['speech to text'] = 'FAILED';
+        newQuest['Hindi Text'] = 'FAILED';
       }
       if (question.hasOwnProperty('translated_data')) {
-        newQuest['language translation'] = question['translated_data'];
+        newQuest['English Text'] = question['translated_data'];
       } else {
-        newQuest['language translation'] = 'FAILED';
+        newQuest['English Text'] = 'FAILED';
       }
       if (question.hasOwnProperty('key_phrase_data') ) {
         newQuest['key phrases'] = JSON.stringify(question['key_phrase_data']);
@@ -195,19 +196,19 @@ export class DashboardUtilityService {
 
   parseDummyData() {
     return {
-      columns: ['No', 'username', 'session name', 'created on', 'question id', 'question uploaded', 'question uploaded on', 'pipeline succeeded', 'speech to text', 'language translation', 'key phrases'],
+      columns: ['No', 'User Name', 'session name', 'Session Held On', 'question id', 'question uploaded', 'Question Synced On', 'pipeline succeeded', 'Hindi Text', 'English Text', 'key phrases'],
       rows: [
         {
           No: 1,
-          username: 'rishabh',
+          'User Name': 'rishabh',
           'session name': 'new session 123',
-          'created on': '10 dec 1996',
+          'Session Held On': '10 dec 1996'.replace(',', ' at '),
           'question id': '123',
           'question uploaded': true,
-          'question uploaded on': '11 dec 1996',
+          'Question Synced On': '11 dec 1996'.replace(',', ' at '),
           'pipeline succeeded': false,
-          'speech to text': 'this is speech to text',
-          'language translation': 'this is language translation',
+          'Hindi Text': 'this is speech to text',
+          'English Text': 'this is language translation',
           'key phrases': 'these are the key phrases'
         }
       ],

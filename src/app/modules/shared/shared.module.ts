@@ -14,9 +14,11 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
 import { ConfigService } from './services/config-service/config.service';
 import { HttpService } from './services/http-service/http.service';
 import { DgTableComponent } from './components/dg-table/dg-table.component';
+import { DownloadService } from './services/download-service/download.service';
 
 
 
@@ -34,9 +36,10 @@ import { DgTableComponent } from './components/dg-table/dg-table.component';
     MatDatepickerModule,
     MatTableModule,
     MatPaginatorModule,
+    MatIconModule,
 
   ],
-  providers: [ConfigService, HttpService],
+  providers: [ConfigService, HttpService, DownloadService],
   exports: [HeaderComponent, DashboardToolbarComponent, RouteNotFoundComponent, DatePickerComponent, MatButtonModule, DgTableComponent]
 })
 export class SharedModule { }

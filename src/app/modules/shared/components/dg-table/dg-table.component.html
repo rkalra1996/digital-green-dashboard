@@ -3,6 +3,9 @@
     <mat-label>Search </mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. 123">
   </mat-form-field>
+  <div class="right-container">
+    <button mat-button (click)="exportAsCSV()">Export as CSV</button>
+  </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -15,9 +18,9 @@
     </ng-container>
   
     <!-- Name Column -->
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef class="username-css">Username</th>
-      <td mat-cell *matCellDef="let element" class="username-css"> {{element?.username}} </td>
+    <ng-container matColumnDef="User Name">
+      <th mat-header-cell *matHeaderCellDef class="username-css">User Name</th>
+      <td mat-cell *matCellDef="let element" class="username-css"> {{element['User Name']}} </td>
     </ng-container>
   
     <!-- Weight Column -->
@@ -27,9 +30,9 @@
     </ng-container>
   
     <!-- Symbol Column -->
-    <ng-container matColumnDef="created on">
-      <th mat-header-cell *matHeaderCellDef class="created_on-css"> Created On </th>
-      <td mat-cell *matCellDef="let element" class="created_on-css"> {{element['created on']}} </td>
+    <ng-container matColumnDef="Session Held On">
+      <th mat-header-cell *matHeaderCellDef class="created_on-css"> Session Held On </th>
+      <td mat-cell *matCellDef="let element" class="created_on-css"> {{element['Session Held On']}} </td>
     </ng-container>
 
     <ng-container matColumnDef="question id">
@@ -42,9 +45,9 @@
         <td mat-cell *matCellDef="let element" class="question_uploaded-css"> {{element['question uploaded']}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="question uploaded on">
-        <th mat-header-cell *matHeaderCellDef class="question_uploaded_on-css"> Question Uploaded On </th>
-        <td mat-cell *matCellDef="let element" class="question_uploaded_on-css"> {{element['question uploaded on']}} </td>
+      <ng-container matColumnDef="Question Synced On">
+        <th mat-header-cell *matHeaderCellDef class="question_uploaded_on-css"> Question Synced On </th>
+        <td mat-cell *matCellDef="let element" class="question_uploaded_on-css"> {{element['Question Synced On']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pipeline succeeded">
@@ -52,14 +55,14 @@
         <td mat-cell *matCellDef="let element" class="pipeline_succeeded-css"> {{element['pipeline succeeded']}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="speech to text">
-        <th mat-header-cell *matHeaderCellDef class="s2t-css"> Speech to Text </th>
-        <td mat-cell *matCellDef="let element" class="s2t-css"> {{element['speech to text']}} </td>
+      <ng-container matColumnDef="Hindi Text">
+        <th mat-header-cell *matHeaderCellDef class="s2t-css"> Hindi Text </th>
+        <td mat-cell *matCellDef="let element" class="s2t-css"> {{element['Hindi Text']}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="language translation">
-        <th mat-header-cell *matHeaderCellDef class="lt-css"> Language Translation </th>
-        <td mat-cell *matCellDef="let element" class="lt-css"> {{element['language translation']}} </td>
+      <ng-container matColumnDef="English Text">
+        <th mat-header-cell *matHeaderCellDef class="lt-css"> English Text </th>
+        <td mat-cell *matCellDef="let element" class="lt-css"> {{element['English Text']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="key phrases">
