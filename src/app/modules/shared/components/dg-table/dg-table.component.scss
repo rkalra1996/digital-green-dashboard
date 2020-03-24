@@ -1,3 +1,40 @@
 table {
+    th {
+        text-align: center;
+    }
     width: 100%;
+    .number-css {
+        min-width: 40px;
+        text-align: left;
+    }
+    .username-css {
+        min-width: 100px;
+        text-align: center;
+    }
+    .session_name-css {
+        min-width: 100px;
+        text-align: center;
+    }
+    .created_on-css {
+        min-width: 100px;
+        text-align: center;
+    }
+    .question_id-css {
+        min-width: 50px;
+        text-align: center;
+    }
+    .question_uploaded-css {
+        text-align: center;
+    }    
+    .question_uploaded_on-css {
+        min-width: 100px;
+        text-align: center;
+    }
+    .pipeline_succeeded-css {
+        min-width: 50px;
+        text-align: center;
+    }
+    .s2t-css, .lt-css, .kp-css {
+        min-width: 150px;
+    }
 }

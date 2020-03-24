@@ -76,22 +76,23 @@ export class DashboardUtilityService {
     const columns = ['No', 'username'];
     const rows = [];
     Object.keys(data).forEach(username => {
-      const userObject = {
+      const initialUserObject = {
         No: (rows.length + 1),
         username,
       };
       data[username].forEach(sessionObject => {
+        const sessionByUserObject = {No: (rows.length + 1), username};
         if (sessionObject.hasOwnProperty('session_name')) {
           if (!columns.includes('session name')) {columns.push('session name');}
-          userObject['session name'] = sessionObject['session_name'];
+          sessionByUserObject['session name'] = sessionObject['session_name'];
         }
         if (sessionObject.hasOwnProperty('session_created_at')) {
-          if (!columns.includes('created on')) {columns.push('created on')};
-          userObject['created on'] = sessionObject['session_created_at'];
+          if (!columns.includes('created on')) {columns.push('created on')}
+          sessionByUserObject['created on'] = sessionObject['session_created_at'];
         }
         /* if (sessionObject.hasOwnProperty('session_is_uploaded')) {
           if (!columns.includes('session uploaded')) {columns.push('session uploaded')};
-          userObject['session uploaded'] = sessionObject['session_is_uploaded'];
+          sessionByUserObject['session uploaded'] = sessionObject['session_is_uploaded'];
         } */
         if (sessionObject.hasOwnProperty('pipeline')) {
           const questionDetails = [];
@@ -101,19 +102,62 @@ export class DashboardUtilityService {
           if (sessionObject['pipeline']['pipeline_failed_count']) {
             questionDetails.push([...this.gatherQuestionDetails(sessionObject['pipeline']['pipeline_failure_details'], false)]);
           }
-          if (!columns.includes('question id')) {columns.push('question id')};
-          if (!columns.includes('question uploaded')) {columns.push('question uploaded')};
-          if (!columns.includes('question uploaded on')) {columns.push('question uploaded on')};
-          if (!columns.includes('pipeline succeeded')) {columns.push('pipeline succeeded')};
-          if (!columns.includes('speech to text')) {columns.push('speech to text')};
-          if (!columns.includes('language translation')) {columns.push('language translation')};
-          if (!columns.includes('key phrases')) {columns.push('key phrases')};
-          userObject['questions'] = questionDetails;
+          if (!columns.includes('question id')) {columns.push('question id')}
+          if (!columns.includes('question uploaded')) {columns.push('question uploaded')}
+          if (!columns.includes('question uploaded on')) {columns.push('question uploaded on')}
+          if (!columns.includes('pipeline succeeded')) {columns.push('pipeline succeeded')}
+          if (!columns.includes('speech to text')) {columns.push('speech to text')}
+          if (!columns.includes('language translation')) {columns.push('language translation')}
+          if (!columns.includes('key phrases')) {columns.push('key phrases')}
+          sessionByUserObject['questions'] = questionDetails;
+          const idCounter = rows.length;
+          console.log('id counter created as ', idCounter);
+          const questionObjects = this.spanQuestions(username, sessionByUserObject, questionDetails[0], idCounter);
+          console.log('question objects is ', questionObjects);
+          questionObjects.forEach(q => rows.push(q));
+          console.log('rows length now is ', rows.length);
         }
+        // rows.push(sessionByUserObject);
       });
-      rows.push(userObject);
+      // rows.push(sessionByUserObject);
     });
     return {columns, rows};
+  }
+
+  spanQuestions(username, sessionObject, questionsArray, idCounter) {
+    console.log('spanQuestions data is ', {username, sessionObject, questionsArray});
+    if (!questionsArray) {
+      return [{
+        No: idCounter + 1,
+        username,
+        'session name': 'Not Available',
+        'created on': 'Not Available',
+        'question id': 'Not Available',
+        'question uploaded': 'Not Available',
+        'question uploaded on': 'Not Available',
+        'pipeline succeeded': 'Not Available',
+      }];
+    }
+    const userBasedOnQuestionsObject = questionsArray.map((question, questionIdx) => {
+      const newQuestObj = {
+        No: idCounter + questionIdx + 1,
+        username,
+        'session name': sessionObject['session name'],
+        'created on': sessionObject['created on'],
+        'question id': question['question id'],
+        'question uploaded': question['question uploaded'],
+        'question uploaded on': question['question uploaded on'],
+        'pipeline succeeded': question['pipeline succeeded'],
+        'speech to text': question['speech to text'],
+        'language translation': question['language translation']
+      };
+      if (question.hasOwnProperty('key phrases')) {
+        // newQuestObj['key phrases'] = question['key phrases'];
+        newQuestObj['key phrases'] = '';
+      }
+      return newQuestObj;
+    });
+    return [...userBasedOnQuestionsObject];
   }
 
   gatherQuestionDetails(questionArray, pipelineSucceeded) {
@@ -131,12 +175,18 @@ export class DashboardUtilityService {
       newQuest['pipeline succeeded'] = pipelineSucceeded;
       if (question.hasOwnProperty('speech_to_text_transcript')) {
         newQuest['speech to text'] = question['speech_to_text_transcript'];
+      } else {
+        newQuest['speech to text'] = 'FAILED';
       }
       if (question.hasOwnProperty('translated_data')) {
         newQuest['language translation'] = question['translated_data'];
+      } else {
+        newQuest['language translation'] = 'FAILED';
       }
       if (question.hasOwnProperty('key_phrase_data') ) {
         newQuest['key phrases'] = JSON.stringify(question['key_phrase_data']);
+      } else {
+        newQuest['key phrases'] = 'FAILED';
       }
       return newQuest;
     });

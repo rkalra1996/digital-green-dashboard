@@ -10,61 +10,61 @@
   
     <!-- Position Column -->
     <ng-container matColumnDef="No">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element?.No}} </td>
+      <th mat-header-cell *matHeaderCellDef class="number-css"> No. </th>
+      <td mat-cell *matCellDef="let element" class="number-css"> {{element?.No}} </td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef>Username</th>
-      <td mat-cell *matCellDef="let element"> {{element?.username}} </td>
+      <th mat-header-cell *matHeaderCellDef class="username-css">Username</th>
+      <td mat-cell *matCellDef="let element" class="username-css"> {{element?.username}} </td>
     </ng-container>
   
     <!-- Weight Column -->
     <ng-container matColumnDef="session name">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <th mat-header-cell *matHeaderCellDef class="session_name-css">Session Name</th>
+      <td mat-cell *matCellDef="let element" class="session_name-css"> {{element['session name']}} </td>
     </ng-container>
   
     <!-- Symbol Column -->
     <ng-container matColumnDef="created on">
-      <th mat-header-cell *matHeaderCellDef> Created On </th>
-      <td mat-cell *matCellDef="let element"> {{element['created on']}} </td>
+      <th mat-header-cell *matHeaderCellDef class="created_on-css"> Created On </th>
+      <td mat-cell *matCellDef="let element" class="created_on-css"> {{element['created on']}} </td>
     </ng-container>
 
     <ng-container matColumnDef="question id">
-        <th mat-header-cell *matHeaderCellDef> Question ID </th>
-        <td mat-cell *matCellDef="let element"> {{element['question id']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="question_id-css"> Question ID </th>
+        <td mat-cell *matCellDef="let element" class="question_id-css"> {{element['question id']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="question uploaded">
-        <th mat-header-cell *matHeaderCellDef> Question Uploaded</th>
-        <td mat-cell *matCellDef="let element"> {{element['question uploaded']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="question_uploaded-css"> Question Uploaded</th>
+        <td mat-cell *matCellDef="let element" class="question_uploaded-css"> {{element['question uploaded']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="question uploaded on">
-        <th mat-header-cell *matHeaderCellDef> Question Uploaded On </th>
-        <td mat-cell *matCellDef="let element"> {{element['question uploaded on']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="question_uploaded_on-css"> Question Uploaded On </th>
+        <td mat-cell *matCellDef="let element" class="question_uploaded_on-css"> {{element['question uploaded on']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pipeline succeeded">
-        <th mat-header-cell *matHeaderCellDef> Pipeline Succeeded </th>
-        <td mat-cell *matCellDef="let element"> {{element['pipeline succeeded']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="pipeline_succeeded-css"> Pipeline Succeeded </th>
+        <td mat-cell *matCellDef="let element" class="pipeline_succeeded-css"> {{element['pipeline succeeded']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="speech to text">
-        <th mat-header-cell *matHeaderCellDef> Speech to Text </th>
-        <td mat-cell *matCellDef="let element"> {{element['speech to text']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="s2t-css"> Speech to Text </th>
+        <td mat-cell *matCellDef="let element" class="s2t-css"> {{element['speech to text']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="language translation">
-        <th mat-header-cell *matHeaderCellDef> Language Translation </th>
-        <td mat-cell *matCellDef="let element"> {{element['language translation']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="lt-css"> Language Translation </th>
+        <td mat-cell *matCellDef="let element" class="lt-css"> {{element['language translation']}} </td>
       </ng-container>
 
       <ng-container matColumnDef="key phrases">
-        <th mat-header-cell *matHeaderCellDef> Key Phrases </th>
-        <td mat-cell *matCellDef="let element"> {{element['key phrases']}} </td>
+        <th mat-header-cell *matHeaderCellDef class="kp-css"> Key Phrases </th>
+        <td mat-cell *matCellDef="let element" class="kp-css"> {{element['key phrases']}} </td>
       </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
