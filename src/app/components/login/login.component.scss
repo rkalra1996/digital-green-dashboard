@@ -1,0 +1,29 @@
+.login-container {
+    background-color: var(--button-hover-color);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+mat-card {
+    max-width: 40%;
+    min-width: 370px;
+    mat-form-field {
+        width: 100%;
+    }
+    .button {
+        text-align: right;
+        margin-top: 5px;
+        button {
+            background-color: var(--button-font-color);
+            color: whitesmoke;
+        }
+    }
+}
+
+.error {
+    margin: 5px;
+    padding: 10px;
+    background-color: red;
+    color: white;
+}
