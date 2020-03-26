@@ -1,0 +1,13 @@
+// this is the customised material theme for this application
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+$dg-primary: mat-palette($mat-grey, A600, A500, A700);
+$dg-accent: mat-palette($mat-light-green, A500, A400, A600);
+$dg-warn: mat-palette($mat-red);
+
+$dg-theme: mat-light-theme($dg-primary, $dg-accent, $dg-warn);
+
+// inject the theme with default theme
+@include angular-material-theme($dg-theme);
