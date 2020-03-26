@@ -16,7 +16,15 @@ export class DashboardCoreService {
   getDashboardData(dateFilters) {
     console.log('recieved filters as ', dateFilters);
     const request = this.dashboardUSrvc.generateReportRequestObject(dateFilters);
-    return this.dashboardUSrvc.hitReportAPI(request);
+    if (request['ok']) {
+      return this.dashboardUSrvc.hitReportAPI(request);
+    } else {
+      if (request.hasOwnProperty('error')) {
+        throw new Error(request.error);
+      } else {
+        throw new Error('Error occured while generating date values from supplied date')
+      }
+    }
   }
 
   downloadDataAsCSV(data, columns, filename= '') {

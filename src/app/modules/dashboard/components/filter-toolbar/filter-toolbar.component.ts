@@ -13,6 +13,7 @@ export class FilterToolbarComponent implements OnInit {
   dataSubs: Subscription;
   fromPickerText = 'Choose from date';
   toPickerText = 'Choose to date';
+  defaultStartingDate = '03/01/2020';
   dateForm = new FormGroup({
     from: new FormControl(''),
     to: new FormControl(''),
@@ -24,10 +25,21 @@ export class FilterToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.dateForm.setValue({
-      from: new Date('03/01/2020').toLocaleDateString(),
+      from: new Date(this.defaultStartingDate).toLocaleDateString(),
       to: new Date().toLocaleDateString()
     });
-    console.log(this.dateForm.get('from').value)
+    console.log('default starting date set as -> ', this.dateForm.get('from').value);
+    this.submitInitialDataDate(this.dateForm);
+  }
+
+  submitInitialDataDate(dateGroup) {
+    const initialDataSubs = this.dashboardCore.getDashboardData(dateGroup.value).subscribe(response => {
+      console.log('recieved initial data response as ', response);
+      this.filteredData.emit(response.data);
+    }, error => {
+      console.log('An error occured while hitting the retrieve api', error);
+      initialDataSubs.unsubscribe();
+    });
   }
 
   selectedToDateEvent($event) {

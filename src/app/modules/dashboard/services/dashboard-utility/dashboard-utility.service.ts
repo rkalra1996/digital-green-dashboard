@@ -31,11 +31,16 @@ export class DashboardUtilityService {
 
   generateReportRequestObject(dateObj) {
     // add the respective query parameters
-    dateObj = this.parseDateForAPI(dateObj);
-    const qString = this.createQueryString(dateObj);
-    return {
-      url: this.configSrvc.getUrl('getReportEndPoint') + qString,
-    };
+    try {
+      dateObj = this.parseDateForAPI(dateObj);
+      const qString = this.createQueryString(dateObj);
+      return {
+        ok: true,
+        url: this.configSrvc.getUrl('getReportEndPoint') + qString,
+      };
+    } catch (e) {
+      return {ok: false, error: 'Unexpected Arguments supplied, check the date format you supplied'};
+    }
   }
 
   hitReportAPI(requestObject): Observable<any> {
@@ -107,15 +112,10 @@ export class DashboardUtilityService {
           if (!columns.includes('key phrases')) {columns.push('key phrases')}
           sessionByUserObject['questions'] = questionDetails;
           const idCounter = rows.length;
-          console.log('id counter created as ', idCounter);
           const questionObjects = this.spanQuestions(username, sessionByUserObject, questionDetails[0], idCounter);
-          console.log('question objects is ', questionObjects);
           questionObjects.forEach(q => rows.push(q));
-          console.log('rows length now is ', rows.length);
         }
-        // rows.push(sessionByUserObject);
       });
-      // rows.push(sessionByUserObject);
     });
     return {columns, rows};
   }
@@ -154,7 +154,11 @@ export class DashboardUtilityService {
       };
       if (question.hasOwnProperty('key phrases')) {
         // newQuestObj['key phrases'] = question['key phrases'];
-        newQuestObj['key phrases'] = '';
+        if (question['key phrases']) {
+          newQuestObj['key phrases'] = JSON.stringify(question['key phrases']);
+        } else {
+          newQuestObj['key phrases'] = '';
+        }
       }
       return newQuestObj;
     });
@@ -187,7 +191,7 @@ export class DashboardUtilityService {
       if (question.hasOwnProperty('key_phrase_data') ) {
         newQuest['key phrases'] = JSON.stringify(question['key_phrase_data']);
       } else {
-        newQuest['key phrases'] = 'FAILED';
+        newQuest['key phrases'] = '';
       }
       return newQuest;
     });

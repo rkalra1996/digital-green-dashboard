@@ -1,4 +1,4 @@
-<mat-form-field color="#8bc95f">
+<mat-form-field>
     <mat-label>{{pickerTitle}}</mat-label>
     <input matInput [matDatepicker]="picker"  [formControl]="currentDate" (dateChange)="changeEvent($event)">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
