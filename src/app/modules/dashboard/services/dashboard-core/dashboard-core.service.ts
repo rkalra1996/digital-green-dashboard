@@ -44,6 +44,9 @@ export class DashboardCoreService {
       if (newObj.hasOwnProperty('English Text') && newObj['English Text']) {
         newObj['English Text'] = `"${newObj['English Text']}"`;
       }
+      if (newObj.hasOwnProperty('key phrases') && newObj['key phrases']) {
+        newObj['key phrases'] = `"${newObj['key phrases']}"`;
+      }
       delete newObj['No'];
       return newObj;
     });
