@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
   selector: 'shared-header',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   toolbarTiles = [];
-  constructor() { }
+  constructor(private readonly authService: AuthService) { }
 
   ngOnInit(): void {
     // set toolbar tiles to be sent to the toolbar component
@@ -16,16 +17,18 @@ export class HeaderComponent implements OnInit {
   }
 
   getToolbarDetails() {
-    return [
-      {
-        name: 'Home',
-        route: '/dashboard',
-      },
-      {
+    const loggedIn = this.authService.checkLogin();
+    const toolbarObject = [{
+      name: 'Home',
+      route: '/dashboard',
+    }];
+    if (!loggedIn['ok']) {
+      toolbarObject.push({
         name: 'Login',
         route: '/login'
-      }
-    ];
+      });
+    }
+    return toolbarObject;
   }
 
 }

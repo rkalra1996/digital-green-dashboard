@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
 import { DashboardUtilityService } from '../dashboard-utility/dashboard-utility.service';
 import { DownloadService } from 'src/app/modules/shared/services/download-service/download.service';
 

@@ -19,6 +19,7 @@ import { ConfigService } from './services/config-service/config.service';
 import { HttpService } from './services/http-service/http.service';
 import { DgTableComponent } from './components/dg-table/dg-table.component';
 import { DownloadService } from './services/download-service/download.service';
+import { SharedService } from './services/shared-service/shared.service';
 
 
 
@@ -39,7 +40,7 @@ import { DownloadService } from './services/download-service/download.service';
     MatIconModule,
 
   ],
-  providers: [ConfigService, HttpService, DownloadService],
+  providers: [ConfigService, HttpService, DownloadService, SharedService],
   exports: [HeaderComponent, DashboardToolbarComponent, RouteNotFoundComponent, DatePickerComponent, MatButtonModule, DgTableComponent]
 })
 export class SharedModule { }
