@@ -51,6 +51,7 @@ export class DashboardUtilityService {
   }
 
   createQueryString(data: object) {
+    console.log('creating query string now');
     if (!Object.keys.length) {
       return '';
     }
