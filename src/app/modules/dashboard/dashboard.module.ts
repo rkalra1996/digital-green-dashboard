@@ -8,12 +8,13 @@ import { FilterToolbarComponent } from './components/filter-toolbar/filter-toolb
 import { DashboardCoreService } from './services/dashboard-core/dashboard-core.service';
 import { DashboardUtilityService } from './services/dashboard-utility/dashboard-utility.service';
 import { ConfigService } from '../shared/services/config-service/config.service';
+import { DashboardFilterUtilityService } from './services/dashboard-filter-utility/dashboard-filter-utility.service';
 // import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
   declarations: [DashboardCoreComponent, FilterToolbarComponent],
-  providers: [DashboardCoreService, DashboardUtilityService, ConfigService],
+  providers: [DashboardCoreService, DashboardUtilityService, ConfigService, DashboardFilterUtilityService],
   imports: [
     CommonModule,
     SharedModule,

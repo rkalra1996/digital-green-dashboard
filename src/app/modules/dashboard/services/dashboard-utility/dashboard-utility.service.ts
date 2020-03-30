@@ -15,7 +15,7 @@ export class DashboardUtilityService {
     private readonly httpSrvc: HttpService,
   ) { }
 
-  parseDateForAPI(dateObj) {
+  /* parseDateForAPI(dateObj) {
     const newObj = {...dateObj};
     if (dateObj.hasOwnProperty('from')) {
       const fromArray = dateObj.from.split('/');
@@ -27,12 +27,12 @@ export class DashboardUtilityService {
     }
     console.log('parsed date object ', newObj);
     return newObj;
-  }
+  } */
 
   generateReportRequestObject(dateObj) {
     // add the respective query parameters
     try {
-      dateObj = this.parseDateForAPI(dateObj);
+      // dateObj = this.parseDateForAPI(dateObj);
       const qString = this.createQueryString(dateObj);
       return {
         ok: true,

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardCoreService } from '../../services/dashboard-core/dashboard-core.service';
 import { Subscription } from 'rxjs';
+import { DashboardFilterUtilityService } from '../../services/dashboard-filter-utility/dashboard-filter-utility.service';
 
 @Component({
   selector: 'dashboard-filter-toolbar',
@@ -21,14 +22,17 @@ export class FilterToolbarComponent implements OnInit {
 
   @Output() filteredData = new EventEmitter<object|null>();
 
-  constructor(private readonly dashboardCore: DashboardCoreService) { }
+  constructor(
+    private readonly filterUtilitySrvc: DashboardFilterUtilityService,
+    private readonly dashboardCore: DashboardCoreService) { }
 
   ngOnInit(): void {
     this.dateForm.setValue({
-      from: new Date(this.defaultStartingDate).toLocaleDateString(),
-      to: new Date().toLocaleDateString()
+      from: this.filterUtilitySrvc.parseDate(this.defaultStartingDate),
+      // setting to date to the current date initially
+      to: this.filterUtilitySrvc.parseDate(null, true),
     });
-    console.log('default starting date set as -> ', this.dateForm.get('from').value);
+    console.log('default date object set as -> ', this.dateForm.value);
     this.submitInitialDataDate(this.dateForm);
   }
 
@@ -38,6 +42,7 @@ export class FilterToolbarComponent implements OnInit {
       this.filteredData.emit(response.data);
     }, error => {
       console.log('An error occured while hitting the retrieve api', error);
+      window.alert('Error loading the report, try again later');
       initialDataSubs.unsubscribe();
     });
   }
