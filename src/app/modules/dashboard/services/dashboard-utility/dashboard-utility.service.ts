@@ -1,7 +1,7 @@
 // tslint:disable: no-string-literal
 import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/modules/shared/services/config-service/config.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { HttpService } from 'src/app/modules/shared/services/http-service/http.service';
 

@@ -48,11 +48,11 @@ export class FilterToolbarComponent implements OnInit {
   }
 
   selectedToDateEvent($event) {
-    this.dateForm.patchValue({to: new Date($event).toLocaleDateString()});
+    this.dateForm.patchValue({to: this.filterUtilitySrvc.parseDate($event)});
   }
 
   selectedFromDateEvent($event) {
-    this.dateForm.patchValue({from: new Date($event).toLocaleDateString()});
+    this.dateForm.patchValue({from: this.filterUtilitySrvc.parseDate($event)});
   }
 
   submitForm() {
