@@ -46,6 +46,9 @@ export class DashboardCoreService {
       if (newObj.hasOwnProperty('key phrases') && newObj['key phrases']) {
         newObj['key phrases'] = `"${newObj['key phrases']}"`;
       }
+      if (newObj.hasOwnProperty('Question Text') && newObj['Question Text']) {
+        newObj['Question Text'] = `"${newObj['Question Text']}"`;
+      }
       delete newObj['No'];
       return newObj;
     });

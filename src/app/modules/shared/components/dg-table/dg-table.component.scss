@@ -1,4 +1,5 @@
 table {
+    width: 2000px;
     th {
         text-align: center;
     }
@@ -34,8 +35,11 @@ table {
         min-width: 50px;
         text-align: center;
     }
-    .s2t-css, .lt-css, .kp-css {
+    .s2t-css, .lt-css, .kp-css , .question_text-css, .name-css{
         min-width: 150px;
+    }
+    .name-css {
+        text-align: center;
     }
 }
 

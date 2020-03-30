@@ -84,6 +84,10 @@ export class DashboardUtilityService {
     Object.keys(data).forEach(username => {
       data[username].forEach(sessionObject => {
         const sessionByUserObject = {No: (rows.length + 1), username};
+        if (sessionObject.hasOwnProperty('session_created_by')) {
+          if (!columns.includes('Name')) {columns.push('Name')};
+          sessionByUserObject['Name'] = sessionObject['session_created_by'];
+        }
         if (sessionObject.hasOwnProperty('session_name')) {
           if (!columns.includes('session name')) {columns.push('session name');}
           sessionByUserObject['session name'] = sessionObject['session_name'];
@@ -92,10 +96,6 @@ export class DashboardUtilityService {
           if (!columns.includes('Session Held On')) {columns.push('Session Held On')}
           sessionByUserObject['Session Held On'] = sessionObject['session_created_at'];
         }
-        /* if (sessionObject.hasOwnProperty('session_is_uploaded')) {
-          if (!columns.includes('session uploaded')) {columns.push('session uploaded')};
-          sessionByUserObject['session uploaded'] = sessionObject['session_is_uploaded'];
-        } */
         if (sessionObject.hasOwnProperty('pipeline')) {
           const questionDetails = [];
           if (sessionObject['pipeline']['pipeline_completed_count']) {
@@ -105,6 +105,7 @@ export class DashboardUtilityService {
             questionDetails.push([...this.gatherQuestionDetails(sessionObject['pipeline']['pipeline_failure_details'], false)]);
           }
           if (!columns.includes('question id')) {columns.push('question id')}
+          if (!columns.includes('Question Text')) {columns.push('Question Text')}
           if (!columns.includes('question uploaded')) {columns.push('question uploaded')}
           if (!columns.includes('Question Synced On')) {columns.push('Question Synced On')}
           if (!columns.includes('pipeline succeeded')) {columns.push('pipeline succeeded')}
@@ -129,9 +130,11 @@ export class DashboardUtilityService {
       return [{
         No: idCounter + 1,
         'User Name': username,
+        Name: sessionObject['Name'],
         'session name': sessionObject['session name'],
         'Session Held On': sessionObject['Session Held On'].replace(',', ' at '),
         'question id': 'Not Available',
+        'Question Text': 'Not Available',
         'question uploaded': 'Not Available',
         'Question Synced On': 'Not Available',
         'pipeline succeeded': 'Not Available',
@@ -144,9 +147,11 @@ export class DashboardUtilityService {
       const newQuestObj = {
         No: idCounter + questionIdx + 1,
         'User Name': username,
+        Name: sessionObject['Name'],
         'session name': sessionObject['session name'],
         'Session Held On': sessionObject['Session Held On'].replace(',', ' at '),
         'question id': question['question id'],
+        'Question Text': question['Question Text'],
         'question uploaded': question['question uploaded'],
         'Question Synced On': question['Question Synced On'].replace(',', ' at '),
         'pipeline succeeded': question['pipeline succeeded'],
@@ -171,6 +176,9 @@ export class DashboardUtilityService {
       const newQuest = {};
       if (question.hasOwnProperty('question_id')) {
         newQuest['question id'] = question['question_id'];
+      }
+      if (question.hasOwnProperty('question_text')) {
+        newQuest['Question Text'] = question['question_text'];
       }
       if (question.hasOwnProperty('question_uploaded')) {
         newQuest['question uploaded'] = question['question_uploaded'];
